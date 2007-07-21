@@ -5,7 +5,7 @@
 Summary:        Steve's SpanDSP library for telephony spans
 Name:           spandsp
 Version:        0.0.4
-Release:        %mkrel 0.pre3.1
+Release:        %mkrel 0.pre3.2
 License:        GPL
 Group:          System/Libraries
 URL:            http://www.soft-switch.org/
@@ -42,6 +42,8 @@ Group:          Development/C
 Obsoletes:      %{name}-devel < %{version}-%{release}
 Provides:       %{name}-devel = %{version}-%{release}
 Requires:       %{libname} = %{version}-%{release}
+Obsoletes:	%{libname}-devel
+Provides:	%{libname}-devel
 
 %description -n %{libnamedev}
 This package includes the header files and libraries needed for
