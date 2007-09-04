@@ -1,17 +1,18 @@
 %define major 0
+
+%define libnamedevold %{mklibname spandsp 0}-devel
 %define libname %mklibname spandsp %{major}
 %define libnamedev %mklibname spandsp -d
+%define libnamestaticdev %mklibname spandsp -d -s
 
-Summary:        Steve's SpanDSP library for telephony spans
 Name:           spandsp
 Version:        0.0.4
-Release:        %mkrel 0.pre3.2
+Release:        %mkrel 0.pre7.2
+Summary:        Steve's SpanDSP library for telephony spans
 License:        GPL
 Group:          System/Libraries
 URL:            http://www.soft-switch.org/
-Source0:        http://www.soft-switch.org/downloads/spandsp/spandsp-0.0.4pre3.tgz
-BuildRequires:  autoconf2.5
-BuildRequires:  automake1.7
+Source0:        http://www.soft-switch.org/downloads/spandsp/spandsp-0.0.4pre7.tgz
 BuildRequires:  audiofile-devel
 BuildRequires:  fftw2-devel
 BuildRequires:  file
@@ -39,21 +40,26 @@ detection of DTMF and supervisory tones.
 %package -n %{libnamedev}
 Summary:        Header files and libraries needed for development with SpanDSP
 Group:          Development/C
-Obsoletes:      %{name}-devel < %{version}-%{release}
+Obsoletes:      %{libnamedevold} < %{version}-%{release}
 Provides:       %{name}-devel = %{version}-%{release}
 Requires:       %{libname} = %{version}-%{release}
-Obsoletes:	%{libname}-devel
-Provides:	%{libname}-devel
 
 %description -n %{libnamedev}
 This package includes the header files and libraries needed for
 developing programs using SpanDSP.
 
+%package -n %{libnamestaticdev}
+Summary:        Static libraries needed for development with SpanDSP
+Group:          Development/C
+Provides:       %{name}-static-devel = %{version}-%{release}
+Requires:       %{libnamedev} = %{version}-%{release}
+
+%description -n %{libnamestaticdev}
+This package includes the static libraries needed for
+developing programs using SpanDSP.
+
 %prep
 %setup -q
-# strip away annoying ^M
-#find . -type f|xargs file|grep 'CRLF'|cut -d: -f1|xargs perl -p -i -e 's/\r//'
-#find . -type f|xargs file|grep 'text'|cut -d: -f1|xargs perl -p -i -e 's/\r//'
 
 %build
 %{configure2_5x}
@@ -61,14 +67,7 @@ developing programs using SpanDSP.
 
 %install
 %{__rm} -rf %{buildroot}
-%{makeinstall}
-
-%check
-# make test does not work yet
-%if 0
-%{make} -C tests \
-    LIBS="-laudiofile -lfftw -lxml2 -ltiff -lfl -lpthread"
-%endif
+%{makeinstall_std}
 
 %post -n %{libname} -p /sbin/ldconfig
 
@@ -87,7 +86,10 @@ developing programs using SpanDSP.
 %{_includedir}/spandsp
 %{_includedir}/*.h
 %{_libdir}/*.so
-%{_libdir}/*.a
 %{_libdir}/*.la
 %{_datadir}/%{name}/global-tones.xml
 %{_datadir}/%{name}/tones.dtd
+
+%files -n %{libnamestaticdev}
+%defattr(-,root,root)
+%{_libdir}/*.a
