@@ -21,6 +21,7 @@ BuildRequires:  jpeg-devel
 BuildRequires:  libtool
 BuildRequires:  libxml2-devel
 BuildRequires:  tiff-devel
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 spandsp is a library for DSP in telephony spans. It can perform
