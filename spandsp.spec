@@ -5,10 +5,10 @@
 %define libnamedev %mklibname spandsp -d
 %define libnamestaticdev %mklibname spandsp -d -s
 
+Summary:        Steve's SpanDSP library for telephony spans
 Name:           spandsp
 Version:        0.0.4
-Release:        %mkrel 0.pre7.2
-Summary:        Steve's SpanDSP library for telephony spans
+Release:        %mkrel 0.pre7.3
 License:        GPL
 Group:          System/Libraries
 URL:            http://www.soft-switch.org/
@@ -21,21 +21,21 @@ BuildRequires:  jpeg-devel
 BuildRequires:  libtool
 BuildRequires:  libxml2-devel
 BuildRequires:  tiff-devel
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
-spandsp is a library for DSP in telephony spans. It can perform
-many of the common DSP functions, such as the generation and
-detection of DTMF and supervisory tones.
+spandsp is a library for DSP in telephony spans. It can perform many of the
+common DSP functions, such as the generation and detection of DTMF and
+supervisory tones.
 
 %package -n %{libname}
 Summary:        Steve's SpanDSP library for telephony spans
 Group:          System/Libraries
 
 %description -n %{libname}
-spandsp is a library for DSP in telephony spans. It can perform
-many of the common DSP functions, such as the generation and
-detection of DTMF and supervisory tones.
+spandsp is a library for DSP in telephony spans. It can perform many of the
+common DSP functions, such as the generation and detection of DTMF and
+supervisory tones.
 
 %package -n %{libnamedev}
 Summary:        Header files and libraries needed for development with SpanDSP
@@ -45,8 +45,8 @@ Provides:       %{name}-devel = %{version}-%{release}
 Requires:       %{libname} = %{version}-%{release}
 
 %description -n %{libnamedev}
-This package includes the header files and libraries needed for
-developing programs using SpanDSP.
+This package includes the header files and libraries needed for developing
+programs using SpanDSP.
 
 %package -n %{libnamestaticdev}
 Summary:        Static libraries needed for development with SpanDSP
@@ -55,19 +55,21 @@ Provides:       %{name}-static-devel = %{version}-%{release}
 Requires:       %{libnamedev} = %{version}-%{release}
 
 %description -n %{libnamestaticdev}
-This package includes the static libraries needed for
-developing programs using SpanDSP.
+This package includes the static libraries needed for developing programs
+using SpanDSP.
 
 %prep
+
 %setup -q
 
 %build
-%{configure2_5x}
-%{make}
+%configure2_5x
+%make
 
 %install
-%{__rm} -rf %{buildroot}
-%{makeinstall_std}
+rm -rf %{buildroot}
+
+%makeinstall_std
 
 %if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
@@ -78,7 +80,7 @@ developing programs using SpanDSP.
 %endif
 
 %clean
-%{__rm} -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files -n %{libname}
 %defattr(-,root,root)
