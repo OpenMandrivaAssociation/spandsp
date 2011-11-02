@@ -1,4 +1,4 @@
-%define major 1
+%define major 2
 
 %define libnamedevold %{mklibname spandsp 0}-devel
 %define libname %mklibname spandsp %{major}
@@ -7,12 +7,12 @@
 
 Summary:        Steve's SpanDSP library for telephony spans
 Name:           spandsp
-Version:        0.0.5
-Release:        %mkrel 0.pre4.2
+Version:        0.0.6
+Release:        %mkrel 0.pre18
 License:        GPL
 Group:          System/Libraries
 URL:            http://www.soft-switch.org/
-Source0:        http://www.soft-switch.org/downloads/spandsp/spandsp-%{version}pre4.tgz
+Source0:        http://www.soft-switch.org/downloads/spandsp/spandsp-%{version}pre18.tgz
 BuildRequires:  audiofile-devel
 BuildRequires:  fftw2-devel
 BuildRequires:  file
@@ -93,6 +93,7 @@ rm -rf %{buildroot}
 %{_includedir}/*.h
 %{_libdir}/*.so
 %{_libdir}/*.la
+%{_libdir}/pkgconfig/*.pc
 
 %files -n %{libnamestaticdev}
 %defattr(-,root,root)
