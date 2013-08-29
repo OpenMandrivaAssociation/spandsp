@@ -14,7 +14,7 @@ Group:          System/Libraries
 URL:            http://www.soft-switch.org/
 Source0:        http://www.soft-switch.org/downloads/spandsp/spandsp-%{version}pre21.tgz
 BuildRequires:  audiofile-devel
-BuildRequires:  fftw2-devel
+BuildRequires:  fftw3-devel
 BuildRequires:  file
 BuildRequires:  fltk-devel
 BuildRequires:  jpeg-devel
@@ -62,7 +62,7 @@ using SpanDSP.
 %setup -q
 
 %build
-%configure2_5x
+%configure2_5x --enable-static
 %make
 
 %install
