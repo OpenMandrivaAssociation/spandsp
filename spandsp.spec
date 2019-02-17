@@ -8,7 +8,7 @@
 Summary:        Steve's SpanDSP library for telephony spans
 Name:           spandsp
 Version:        0.0.6
-Release:        %mkrel 0.pre21
+Release:        0.pre21.1
 License:        GPL
 Group:          System/Libraries
 URL:            http://www.soft-switch.org/
