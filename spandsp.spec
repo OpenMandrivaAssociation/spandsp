@@ -1,26 +1,29 @@
-%define major 2
+%define major 3
 
 %define libnamedevold %{mklibname spandsp 0}-devel
-%define libname %mklibname spandsp %{major}
+%define oldlibname %mklibname spandsp 2
+%define libname %mklibname spandsp
 %define libnamedev %mklibname spandsp -d
 %define libnamestaticdev %mklibname spandsp -d -s
+
+%define date 20230428
 
 Summary:        Steve's SpanDSP library for telephony spans
 Name:           spandsp
 Version:        0.0.6
-Release:        0.pre21.1
+Release:        0.%{date}.1
 License:        GPL
 Group:          System/Libraries
-URL:            http://www.soft-switch.org/
-Source0:        http://www.soft-switch.org/downloads/spandsp/spandsp-%{version}pre21.tgz
-BuildRequires:  audiofile-devel
-BuildRequires:  fftw3-devel
+URL:            https://github.com/freeswitch/spandsp
+Source0:        https://github.com/freeswitch/spandsp/archive/refs/heads/master.tar.gz#/%{name}-%{date}.tar.gz
+BuildRequires:  pkgconfig(audiofile)
+BuildRequires:  pkgconfig(fftw3)
 BuildRequires:  file
 BuildRequires:  fltk-devel
-BuildRequires:  jpeg-devel
+BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  libtool
-BuildRequires:  libxml2-devel
-BuildRequires:  tiff-devel
+BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(libtiff-4)
 
 %description
 spandsp is a library for DSP in telephony spans. It can perform many of the
@@ -30,6 +33,7 @@ supervisory tones.
 %package -n %{libname}
 Summary:        Steve's SpanDSP library for telephony spans
 Group:          System/Libraries
+%rename %{oldlibname}
 
 %description -n %{libname}
 spandsp is a library for DSP in telephony spans. It can perform many of the
@@ -58,15 +62,15 @@ This package includes the static libraries needed for developing programs
 using SpanDSP.
 
 %prep
-
-%setup -q
+%autosetup -p1 -n %{name}-master
+./autogen.sh
+%configure --enable-static
 
 %build
-%configure2_5x --enable-static
-%make
+%make_build
 
 %install
-%makeinstall_std
+%make_install
 
 %files -n %{libname}
 %doc AUTHORS ChangeLog COPYING DueDiligence INSTALL NEWS README
@@ -80,45 +84,3 @@ using SpanDSP.
 
 %files -n %{libnamestaticdev}
 %{_libdir}/*.a
-
-
-%changelog
-* Thu Nov 03 2011 Alexander Khrukin <akhrukin@mandriva.org> 0.0.6-0.pre18mdv2011.0
-+ Revision: 713253
-- added new files removed old
-- pkgconfig fix in spec and version bump
-
-* Tue Sep 08 2009 Thierry Vignaud <tv@mandriva.org> 0.0.5-0.pre4.2mdv2010.0
-+ Revision: 434015
-- rebuild
-
-* Tue Jul 22 2008 Oden Eriksson <oeriksson@mandriva.com> 0.0.5-0.pre4.1mdv2009.0
-+ Revision: 240865
-- 0.0.5pre4
-
-* Wed Jun 18 2008 Oden Eriksson <oeriksson@mandriva.com> 0.0.4-0.pre7.3mdv2009.0
-+ Revision: 225610
-- rebuild
-
-  + Pixel <pixel@mandriva.com>
-    - do not call ldconfig in %%post/%%postun, it is now handled by filetriggers
-
-* Wed Jan 02 2008 Olivier Blin <blino@mandriva.org> 0.0.4-0.pre7.2mdv2008.1
-+ Revision: 140850
-- restore BuildRoot
-
-  + Thierry Vignaud <tv@mandriva.org>
-    - kill re-definition of %%buildroot on Pixel's request
-
-* Tue Sep 04 2007 David Walluck <walluck@mandriva.org> 0.0.4-0.pre7.2mdv2008.0
-+ Revision: 79130
-- 0.0.4pre7
-
-* Sat Jul 21 2007 Stefan van der Eijk <stefan@mandriva.org> 0.0.4-0.pre3.2mdv2008.0
-+ Revision: 54337
-- fix new dev stuff breakage
-
-* Wed Jul 18 2007 David Walluck <walluck@mandriva.org> 0.0.4-0.pre3.1mdv2008.0
-+ Revision: 53318
-- 0.0.4pre3
-
