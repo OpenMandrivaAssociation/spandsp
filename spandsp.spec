@@ -10,8 +10,8 @@
 
 Summary:        Steve's SpanDSP library for telephony spans
 Name:           spandsp
-Version:        0.0.6
-Release:        0.%{date}.1
+Version:        3.0.0
+Release:        0.%{date}1
 License:        GPL
 Group:          System/Libraries
 URL:            https://github.com/freeswitch/spandsp
