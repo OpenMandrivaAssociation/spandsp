@@ -16,6 +16,11 @@ License:        GPL
 Group:          System/Libraries
 URL:            https://github.com/freeswitch/spandsp
 Source0:        https://github.com/freeswitch/spandsp/archive/refs/heads/master.tar.gz#/%{name}-%{date}.tar.gz
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:  pkgconfig(audiofile)
 BuildRequires:  pkgconfig(fftw3)
 BuildRequires:  file
