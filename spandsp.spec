@@ -6,7 +6,7 @@
 %define libnamedev %mklibname spandsp -d
 %define libnamestaticdev %mklibname spandsp -d -s
 
-%define date 20230428
+%define date 20250707
 
 Summary:        Steve's SpanDSP library for telephony spans
 Name:           spandsp
