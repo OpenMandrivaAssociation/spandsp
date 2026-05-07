@@ -23,7 +23,7 @@ BuildRequires:	slibtool
 BuildRequires:	make
 BuildRequires:  pkgconfig(audiofile)
 BuildRequires:  pkgconfig(fftw3)
-BuildRequires:  file
+BuildRequires:  file which
 BuildRequires:  fltk-devel
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  libtool
@@ -68,7 +68,7 @@ using SpanDSP.
 
 %prep
 %autosetup -p1 -n %{name}-master
-./autogen.sh
+autoreconf -fiv
 %configure --enable-static
 
 %build
